@@ -23,45 +23,79 @@ namespace ElcomPlusTestApp
 
         private void buildTreeButton_Click(object sender, EventArgs e)
         {
+            string xmlUrl = xmlAdressBox.Text;
 
-            populateXmlTreeView("https://raw.githubusercontent.com/kizeevov/elcomplusfiles/main/config.xml");
+            if (xmlUrl.Length == 0)
+            {
+                popUpMessage("Пустая адресная строка");
+            } else
+            {
+                populateXmlTreeView(xmlUrl);
+            }
 
+        }
+
+        private void popUpMessage(string message)
+        {
+            string caption = "Ошибка";
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            MessageBox.Show(message, caption, buttons);
         }
 
         private void xmlTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
             Console.WriteLine(xmlTreeView.SelectedNode.Tag);
-            propertiesTextBox.Clear();
+            attributesTextBox.Clear();
 
-            //propertiesTextBox.Text += xmlTreeView.SelectedNode.Tag;
-        }
+            XmlNode taggedNode = (XmlNode) xmlTreeView.SelectedNode.Tag;
 
-        private void xmlTreeView_BeforeExpand(object sender, TreeViewCancelEventArgs e)
-        {
+            if (taggedNode.Attributes != null)
+            {
+                foreach (XmlAttribute attr in taggedNode.Attributes)
+                {
+                    attributesTextBox.AppendText($"{attr.Name} = {attr.Value}");
+                    attributesTextBox.AppendText(Environment.NewLine);
+                }
+            }
             
-        }
-
-        private void propertiesLabel_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void populateXmlTreeView(string url)
         {
+            xmlTreeView.Nodes.Clear();
             XmlDocument doc = new XmlDocument();
-            doc.Load(url);
-
-            foreach (XmlNode xmlNode in doc.ChildNodes)
+            
+            try
             {
-                iterateThroughChildNodes(xmlNode, null);
-            }          
+                doc.Load(url);
+
+                foreach (XmlNode xmlNode in doc.ChildNodes)
+                {
+                    iterateThroughChildNodes(xmlNode, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                popUpMessage(String.Format("XmlException: {0}", ex.Message));
+            }
+                      
 
         }
 
         private void iterateThroughChildNodes(XmlNode parentXmlNode, TreeNode parentTreeNode)
         {
-            TreeNode newTreeNode = new TreeNode(parentXmlNode.Name);
+            TreeNode newTreeNode;
+            switch (parentXmlNode.NodeType)
+            {
+                case (XmlNodeType.Text):
+                    newTreeNode = new TreeNode("text: " + parentXmlNode.Value);
+                    break;
+                // Можно добавить обработку других типов узлов
+                default:
+                    newTreeNode = new TreeNode(parentXmlNode.Name);
+                    break;
+            }
             newTreeNode.Tag = parentXmlNode;
             
             if (parentTreeNode != null)

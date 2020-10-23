@@ -31,22 +31,24 @@
             this.xmlAdressBox = new System.Windows.Forms.TextBox();
             this.buildTreeButton = new System.Windows.Forms.Button();
             this.xmlTreeView = new System.Windows.Forms.TreeView();
-            this.propertiesTextBox = new System.Windows.Forms.TextBox();
-            this.propertiesLabel = new System.Windows.Forms.Label();
+            this.attributesTextBox = new System.Windows.Forms.TextBox();
+            this.attributesLabel = new System.Windows.Forms.Label();
+            this.xmlUrlLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // xmlAdressBox
             // 
-            this.xmlAdressBox.Location = new System.Drawing.Point(12, 12);
+            this.xmlAdressBox.Location = new System.Drawing.Point(12, 36);
             this.xmlAdressBox.Name = "xmlAdressBox";
             this.xmlAdressBox.Size = new System.Drawing.Size(271, 20);
             this.xmlAdressBox.TabIndex = 0;
             // 
             // buildTreeButton
             // 
-            this.buildTreeButton.Location = new System.Drawing.Point(12, 38);
+            this.buildTreeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buildTreeButton.Location = new System.Drawing.Point(12, 62);
             this.buildTreeButton.Name = "buildTreeButton";
-            this.buildTreeButton.Size = new System.Drawing.Size(75, 23);
+            this.buildTreeButton.Size = new System.Drawing.Size(96, 42);
             this.buildTreeButton.TabIndex = 1;
             this.buildTreeButton.Text = "build tree";
             this.buildTreeButton.UseVisualStyleBackColor = true;
@@ -54,39 +56,49 @@
             // 
             // xmlTreeView
             // 
-            this.xmlTreeView.Location = new System.Drawing.Point(12, 67);
+            this.xmlTreeView.Location = new System.Drawing.Point(12, 117);
             this.xmlTreeView.Name = "xmlTreeView";
             this.xmlTreeView.Size = new System.Drawing.Size(423, 371);
             this.xmlTreeView.TabIndex = 2;
-            this.xmlTreeView.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.xmlTreeView_BeforeExpand);
             this.xmlTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.xmlTreeView_AfterSelect);
             // 
-            // propertiesTextBox
+            // attributesTextBox
             // 
-            this.propertiesTextBox.Location = new System.Drawing.Point(472, 67);
-            this.propertiesTextBox.Multiline = true;
-            this.propertiesTextBox.Name = "propertiesTextBox";
-            this.propertiesTextBox.ReadOnly = true;
-            this.propertiesTextBox.Size = new System.Drawing.Size(296, 172);
-            this.propertiesTextBox.TabIndex = 3;
+            this.attributesTextBox.Location = new System.Drawing.Point(472, 117);
+            this.attributesTextBox.Multiline = true;
+            this.attributesTextBox.Name = "attributesTextBox";
+            this.attributesTextBox.ReadOnly = true;
+            this.attributesTextBox.Size = new System.Drawing.Size(296, 172);
+            this.attributesTextBox.TabIndex = 3;
             // 
-            // propertiesLabel
+            // attributesLabel
             // 
-            this.propertiesLabel.AutoSize = true;
-            this.propertiesLabel.Location = new System.Drawing.Point(469, 48);
-            this.propertiesLabel.Name = "propertiesLabel";
-            this.propertiesLabel.Size = new System.Drawing.Size(54, 13);
-            this.propertiesLabel.TabIndex = 4;
-            this.propertiesLabel.Text = "Properties";
-            this.propertiesLabel.Click += new System.EventHandler(this.propertiesLabel_Click);
+            this.attributesLabel.AutoSize = true;
+            this.attributesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.attributesLabel.Location = new System.Drawing.Point(469, 87);
+            this.attributesLabel.Name = "attributesLabel";
+            this.attributesLabel.Size = new System.Drawing.Size(68, 17);
+            this.attributesLabel.TabIndex = 4;
+            this.attributesLabel.Text = "Attributes";
+            // 
+            // xmlUrlLabel
+            // 
+            this.xmlUrlLabel.AutoSize = true;
+            this.xmlUrlLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.xmlUrlLabel.Location = new System.Drawing.Point(12, 9);
+            this.xmlUrlLabel.Name = "xmlUrlLabel";
+            this.xmlUrlLabel.Size = new System.Drawing.Size(96, 24);
+            this.xmlUrlLabel.TabIndex = 5;
+            this.xmlUrlLabel.Text = "XML URL:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.propertiesLabel);
-            this.Controls.Add(this.propertiesTextBox);
+            this.ClientSize = new System.Drawing.Size(800, 500);
+            this.Controls.Add(this.xmlUrlLabel);
+            this.Controls.Add(this.attributesLabel);
+            this.Controls.Add(this.attributesTextBox);
             this.Controls.Add(this.xmlTreeView);
             this.Controls.Add(this.buildTreeButton);
             this.Controls.Add(this.xmlAdressBox);
@@ -102,7 +114,8 @@
         private System.Windows.Forms.TextBox xmlAdressBox;
         private System.Windows.Forms.Button buildTreeButton;
         private System.Windows.Forms.TreeView xmlTreeView;
-        private System.Windows.Forms.TextBox propertiesTextBox;
-        private System.Windows.Forms.Label propertiesLabel;
+        private System.Windows.Forms.TextBox attributesTextBox;
+        private System.Windows.Forms.Label attributesLabel;
+        private System.Windows.Forms.Label xmlUrlLabel;
     }
 }

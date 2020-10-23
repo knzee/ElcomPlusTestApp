@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace ElcomPlusTestApp
 {
+
     public partial class MainForm : Form
     {
         public MainForm()
@@ -21,15 +23,9 @@ namespace ElcomPlusTestApp
 
         private void buildTreeButton_Click(object sender, EventArgs e)
         {
-            
-            Console.WriteLine(xmlAdressBox.Text);
 
-            TreeNode testNode = new TreeNode("Тест");
-            testNode.Tag = "test";
+            populateXmlTreeView("https://raw.githubusercontent.com/kizeevov/elcomplusfiles/main/config.xml");
 
-            TreeNode test = new TreeNode("AAsdasd");
-            xmlTreeView.Nodes.Add(testNode);
-            xmlTreeView.Nodes.Add(test);
         }
 
         private void xmlTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -38,7 +34,7 @@ namespace ElcomPlusTestApp
             Console.WriteLine(xmlTreeView.SelectedNode.Tag);
             propertiesTextBox.Clear();
 
-            propertiesTextBox.Text += xmlTreeView.SelectedNode.Tag;
+            //propertiesTextBox.Text += xmlTreeView.SelectedNode.Tag;
         }
 
         private void xmlTreeView_BeforeExpand(object sender, TreeViewCancelEventArgs e)
@@ -50,5 +46,38 @@ namespace ElcomPlusTestApp
         {
 
         }
+
+        private void populateXmlTreeView(string url)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(url);
+
+            foreach (XmlNode xmlNode in doc.ChildNodes)
+            {
+                iterateThroughChildNodes(xmlNode, null);
+            }          
+
+        }
+
+        private void iterateThroughChildNodes(XmlNode parentXmlNode, TreeNode parentTreeNode)
+        {
+            TreeNode newTreeNode = new TreeNode(parentXmlNode.Name);
+            newTreeNode.Tag = parentXmlNode;
+            
+            if (parentTreeNode != null)
+            {
+                parentTreeNode.Nodes.Add(newTreeNode);
+            } else
+            {
+                xmlTreeView.Nodes.Add(newTreeNode);
+            }
+            
+
+            foreach (XmlNode childNode in parentXmlNode.ChildNodes)
+            {
+                iterateThroughChildNodes(childNode, newTreeNode);
+            }
+        }
+
     }
 }
